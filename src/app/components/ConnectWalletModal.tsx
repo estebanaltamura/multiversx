@@ -8,53 +8,44 @@ import { ProviderContext, ProviderTypes } from '../contexts/Provider';
 const ConnectWalletModal: React.FC = () => {
   const { login, logout } = useContext(ProviderContext);
 
-  const loginHandler = (providerType: ProviderTypes) => () =>
+  const loginHandler: (event: React.MouseEvent<HTMLButtonElement>) => void = (
+    event
+  ) => {
+    const providerType = event.currentTarget.id as ProviderTypes;
     login(providerType);
-  const logoutHandler = () => logout();
+  };
+
+  const logoutHandler = () => {
+    logout();
+  };
 
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        maxWidth: '480px',
-        height: 'fit-content',
-        padding: '20px',
-        borderRadius: '16px',
-        fontSize: '18px',
-        fontWeight: '700',
-        backgroundColor: '#d7d8d8',
-        margin: 'auto',
-        marginTop: '100px',
+        maxWidth: '378px',
+        maxHeight: '382px',
+        padding: '10px',
+        gap: '30px',
       }}
     >
-      <Typography margin='auto' variant='h5' color='black'>
-        Connect your wallet
-      </Typography>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          marginTop: '20px',
-          gap: '10px',
-        }}
+      <CustomButton id={ProviderTypes.EXTENSION} onClickHandler={loginHandler}>
+        Login with extension
+      </CustomButton>
+      <CustomButton id={ProviderTypes.WEB} onClickHandler={loginHandler}>
+        Login with web wallet
+      </CustomButton>
+      <CustomButton
+        id={ProviderTypes.WALLET_CONNECT}
+        onClickHandler={loginHandler}
       >
-        <CustomButton onClickHandler={loginHandler(ProviderTypes.EXTENSION)}>
-          Login with extension
-        </CustomButton>
-        <CustomButton onClickHandler={loginHandler(ProviderTypes.WEB)}>
-          Login with web wallet
-        </CustomButton>
-        <CustomButton
-          onClickHandler={loginHandler(ProviderTypes.WALLET_CONNECT)}
-        >
-          Login with wallet connect
-        </CustomButton>
-        <CustomButton onClickHandler={loginHandler(ProviderTypes.LEDGER)}>
-          Login with ledger
-        </CustomButton>
-        <CustomButton onClickHandler={logoutHandler}>LOGOUT</CustomButton>
-      </Box>
+        Login with wallet connect
+      </CustomButton>
+      <CustomButton id={ProviderTypes.LEDGER} onClickHandler={loginHandler}>
+        Login with ledger
+      </CustomButton>
+      <CustomButton onClickHandler={logoutHandler}>LOGOUT</CustomButton>
     </Box>
   );
 };
