@@ -115,7 +115,7 @@ const Provider: FC<{ children: ReactNode }> = ({ children }) => {
             },
           };
 
-          const chainId = '1'; // Usa el chainId adecuado
+          const chainId = 'T'; // Usa el chainId adecuado
           const walletConnectV2Relay = 'wss://relay.walletconnect.org';
           const walletConnectV2ProjectId = '85a62864c3d95a4630e06b18e56f2d07';
           const walletConnectProvider = new WalletConnectV2Provider(
