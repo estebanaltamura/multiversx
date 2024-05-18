@@ -11,6 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Provider from './contexts/Provider';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -67,7 +68,7 @@ export default function RootLayout({
                 <MenuIcon />
               </IconButton>
 
-              <Button
+              <Box
                 sx={{
                   color: 'white',
                   gridArea: 'C',
@@ -76,8 +77,8 @@ export default function RootLayout({
                   padding: '0 15px',
                 }}
               >
-                Login
-              </Button>
+                <Link href='/login'>Login</Link>
+              </Box>
             </Toolbar>
           </AppBar>
           {children}
