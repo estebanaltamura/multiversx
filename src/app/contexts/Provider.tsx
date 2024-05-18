@@ -18,12 +18,6 @@ export type ProviderTypesSDK =
   | HWProvider
   | WalletProvider;
 
-interface IClientConnect {
-  onClientLogin: () => void;
-  onClientLogout: () => void;
-  onClientEvent: (event: SignClientTypes.EventArguments) => void;
-}
-
 const isPlainObject = (value: any): boolean =>
   Object.prototype.toString.call(value) === '[object Object]';
 const isString = (value: any): boolean => typeof value === 'string';
@@ -96,6 +90,19 @@ const Provider: FC<{ children: ReactNode }> = ({ children }) => {
           break;
 
         case ProviderTypes.WALLET_CONNECT:
+          interface SessionEventTypes {
+            event: {
+              name: string;
+              data: any;
+            };
+            chainId: string;
+          }
+          interface IClientConnect {
+            onClientLogin: () => void;
+            onClientLogout(): void;
+            onClientEvent: (event: SessionEventTypes['event']) => void;
+          }
+
           const onClientConnect: IClientConnect = {
             onClientLogin: () => {
               console.log('Client logged in');
