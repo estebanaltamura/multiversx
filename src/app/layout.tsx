@@ -77,10 +77,12 @@ export default function RootLayout({
 
               <Button
                 sx={{
+                  position: 'relative',
+                  top: '3px',
                   color: 'white',
                   gridArea: 'C',
                   width: 'fit-content',
-                  height: '18px',
+                  height: 'fit-content',
                   padding: '0 15px',
                 }}
               >
