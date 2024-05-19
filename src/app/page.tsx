@@ -94,6 +94,20 @@ const Page = () => {
         >
           Trade like a pro
         </Typography>
+        <Typography
+          sx={{
+            fontSize: '16px',
+            textAlign: 'center',
+            color: '#6E6E6E',
+            fontWeight: '500',
+            '@media (min-width: 1200px)': {
+              textAlign: 'center',
+              fontSize: '18px',
+            },
+          }}
+        >
+          Get our lowest fees, high-speed transactions, powerful APIs, and more.
+        </Typography>
         <Box sx={{ marginTop: '30px' }}>
           <DesktopDemoVideo />
         </Box>

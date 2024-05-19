@@ -52,10 +52,11 @@ export default function RootLayout({
             <Toolbar
               sx={{
                 display: 'grid',
+                height: '44px !important',
+                minHeight: '44px !important',
                 padding: '0px !important',
                 gridTemplateColumns:
                   'fit-content(100px) 1fr fit-content(1000px)',
-                gridTemplateRows: '44px',
                 gridTemplateAreas: `
           'A B C'
         `,
