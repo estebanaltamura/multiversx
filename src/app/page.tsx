@@ -35,6 +35,8 @@ const Page = () => {
           sx={{
             display: 'flex',
             width: '100%',
+            justifyContent: 'center',
+
             '@media (min-width: 1200px)': {
               justifyContent: 'right',
               width: '60%',
