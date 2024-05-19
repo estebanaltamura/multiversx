@@ -13,6 +13,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Link from 'next/link';
 import { Divider } from '@mui/material';
+import ConnectButton from './components/ConnectButton';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -30,7 +31,8 @@ export default function RootLayout({
             name='viewport'
             content='width=device-width, initial-scale=1.0'
           />
-          <title>My Application</title>
+          <title>MVP del MVP</title>
+          <link rel='icon' href='/images/favicon.webp' />
         </head>
         <body
           className={inter.className}
@@ -75,19 +77,17 @@ export default function RootLayout({
                 <MenuIcon />
               </IconButton>
 
-              <Button
+              <Box
                 sx={{
                   position: 'relative',
-                  top: '3px',
                   color: 'white',
                   gridArea: 'C',
                   width: 'fit-content',
                   height: 'fit-content',
-                  padding: '0 15px',
                 }}
               >
-                <Link href='/login'>Connect</Link>
-              </Button>
+                <ConnectButton>Connect</ConnectButton>
+              </Box>
             </Toolbar>
           </AppBar>
           <main
@@ -101,8 +101,8 @@ export default function RootLayout({
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                height: 'fit-content',
-                padding: '30px 0',
+                height: '20px',
+                padding: '50px 0',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: 'white',
