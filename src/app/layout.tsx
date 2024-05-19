@@ -83,7 +83,7 @@ export default function RootLayout({
             </Toolbar>
           </AppBar>
           <main
-            style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}
+            style={{ padding: '0 20px', maxWidth: '1200px', margin: '0 auto' }}
           >
             {children}
           </main>
