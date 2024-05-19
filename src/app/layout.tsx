@@ -38,10 +38,10 @@ export default function RootLayout({
           <AppBar
             sx={{
               position: 'static',
-              width: '100%',
+              width: '100vw',
               height: '80px',
               padding: '8px 16px',
-              backgroundColor: '#242526',
+              backgroundColor: '#121212',
             }}
           >
             <Toolbar
@@ -58,6 +58,7 @@ export default function RootLayout({
             >
               <IconButton
                 sx={{
+                  display: 'none',
                   padding: 0,
                   gridArea: 'A',
                 }}
@@ -68,7 +69,7 @@ export default function RootLayout({
                 <MenuIcon />
               </IconButton>
 
-              <Box
+              <Button
                 sx={{
                   color: 'white',
                   gridArea: 'C',
@@ -77,11 +78,15 @@ export default function RootLayout({
                   padding: '0 15px',
                 }}
               >
-                <Link href='/login'>Login</Link>
-              </Box>
+                <Link href='/login'>Connect</Link>
+              </Button>
             </Toolbar>
           </AppBar>
-          {children}
+          <main
+            style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}
+          >
+            {children}
+          </main>
         </body>
       </html>
     </Provider>
