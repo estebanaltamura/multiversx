@@ -1,15 +1,26 @@
 import { Box, Typography } from '@mui/material';
 import MobileDemoVideo from './components/MobileDemoVideo';
 import DesktopDemoVideo from './components/DesktopDemoVIdeo';
+import TickerTapeWidget from './components/TickerTapeWidget';
 
 const Page = () => {
   return (
     <div>
       <Box
         sx={{
+          width: '100vw',
+          position: 'relative',
+          left: '50%',
+          transform: 'translateX(-50%)',
+        }}
+      >
+        <TickerTapeWidget />
+      </Box>
+      <Box
+        sx={{
           display: 'flex',
           width: '100%',
-          marginTop: '50px',
+          marginTop: '70px',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
@@ -33,7 +44,7 @@ const Page = () => {
           <Typography
             variant='h1'
             sx={{
-              fontSize: '32px',
+              fontSize: '25px',
               textAlign: 'center',
               color: 'white',
               fontWeight: '700',
@@ -60,7 +71,7 @@ const Page = () => {
         sx={{
           display: 'flex',
           width: '100%',
-          marginTop: '150px',
+          marginTop: '100px',
           flexDirection: 'column',
           alignItems: 'center',
         }}
