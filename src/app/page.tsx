@@ -5,22 +5,23 @@ import TickerTapeWidget from './components/TickerTapeWidget';
 
 const Page = () => {
   return (
-    <div>
+    <>
       <Box
         sx={{
-          width: '100vw',
-          position: 'relative',
-          left: '50%',
-          transform: 'translateX(-50%)',
+          width: '100%',
+          position: 'absolute',
+          top: '60px',
+          left: '0px',
         }}
       >
         <TickerTapeWidget />
       </Box>
+
       <Box
         sx={{
           display: 'flex',
           width: '100%',
-          marginTop: '70px',
+          marginTop: '140px',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
@@ -112,7 +113,7 @@ const Page = () => {
           <DesktopDemoVideo />
         </Box>
       </Box>
-    </div>
+    </>
   );
 };
 

@@ -8,7 +8,7 @@ const TickerTapeWidget: React.FC = () => {
     script.src =
       'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js';
     script.async = true;
-    script.innerHTML = JSON.stringify({
+    script.textContent = JSON.stringify({
       symbols: [
         { description: 'Gold', proName: 'TVC:GOLD' },
         { description: 'Oil', proName: 'AMEX:USO' },
@@ -28,7 +28,7 @@ const TickerTapeWidget: React.FC = () => {
     }
 
     return () => {
-      if (container) {
+      if (container && container.contains(script)) {
         container.removeChild(script);
       }
     };
@@ -38,6 +38,7 @@ const TickerTapeWidget: React.FC = () => {
     <div
       className='tradingview-widget-container'
       id='tradingview-widget-container'
+      style={{ width: '100vw' }} // Asegúrate de que ocupe todo el ancho de la pantalla
     >
       <div className='tradingview-widget-container__widget'></div>
     </div>

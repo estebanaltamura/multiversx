@@ -37,15 +37,14 @@ export default function RootLayout({
         <body
           className={inter.className}
           style={{
-            width: '100vw',
-            minHeight: '100vh',
+            width: '100%',
             backgroundColor: 'black',
           }}
         >
           <AppBar
             sx={{
               position: 'static',
-              width: '100vw',
+              width: '100%',
               height: '60px',
               padding: '8px 24px',
               backgroundColor: '#121212',
@@ -91,105 +90,121 @@ export default function RootLayout({
             </Toolbar>
           </AppBar>
           <main
-            style={{ padding: '0 20px', maxWidth: '1200px', margin: '0 auto' }}
+            style={{
+              padding: '0 20px 80px 20px',
+              maxWidth: '1200px',
+              minHeight: 'calc(100vh - 180px)',
+              margin: '0 auto',
+            }}
           >
             {children}
           </main>
-          <footer style={{ height: '120px', marginTop: '50px' }}>
+          <footer>
             <Divider sx={{ backgroundColor: 'white' }} />
             <Box
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                height: '20px',
-                padding: '50px 0',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'white',
-                fontSize: '14px',
-                gap: '10px',
-
+                height: '300px',
                 '@media (min-width: 1200px)': {
-                  flexDirection: 'row',
-                  gap: '0px',
+                  height: '120px',
                 },
               }}
             >
-              <Typography variant='body2' sx={{ marginRight: '8px' }}>
-                © 2024 Your Company, Inc.
-              </Typography>
-
               <Box
                 sx={{
-                  marginRight: '8px',
-                  textDecoration: 'none',
-                }}
-              >
-                <Link href='#'>Terms</Link>
-              </Box>
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: 'auto',
+                  paddingTop: '30px',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white',
+                  fontSize: '14px',
+                  gap: '10px',
 
-              <Box
-                sx={{
-                  marginRight: '8px',
-                  textDecoration: 'none',
+                  '@media (min-width: 1200px)': {
+                    width: '100%',
+                    flexDirection: 'row',
+                    padding: '50px 0',
+                    gap: '0px',
+                  },
                 }}
               >
-                <Link href='#'>Privacy</Link>
-              </Box>
+                <Typography variant='body2' sx={{ marginRight: '8px' }}>
+                  © 2024 Your Company, Inc.
+                </Typography>
 
-              <Box
-                sx={{
-                  marginRight: '8px',
-                  textDecoration: 'none',
-                }}
-              >
-                {' '}
-                <Link href='#'>Security</Link>
-              </Box>
+                <Box
+                  sx={{
+                    marginRight: '8px',
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Link href='#'>Terms</Link>
+                </Box>
 
-              <Box
-                sx={{
-                  marginRight: '8px',
-                  textDecoration: 'none',
-                }}
-              >
-                <Link href='#'>Status</Link>
-              </Box>
+                <Box
+                  sx={{
+                    marginRight: '8px',
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Link href='#'>Privacy</Link>
+                </Box>
 
-              <Box
-                sx={{
-                  marginRight: '8px',
-                  textDecoration: 'none',
-                }}
-              >
-                <Link href='#'>Docs</Link>
-              </Box>
+                <Box
+                  sx={{
+                    marginRight: '8px',
+                    textDecoration: 'none',
+                  }}
+                >
+                  {' '}
+                  <Link href='#'>Security</Link>
+                </Box>
 
-              <Box
-                sx={{
-                  marginRight: '8px',
-                  textDecoration: 'none',
-                }}
-              >
-                <Link href='#'>Contact</Link>
-              </Box>
+                <Box
+                  sx={{
+                    marginRight: '8px',
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Link href='#'>Status</Link>
+                </Box>
 
-              <Box
-                sx={{
-                  marginRight: '8px',
-                  textDecoration: 'none',
-                }}
-              >
-                <Link href='#'>Manage cookies</Link>
-              </Box>
+                <Box
+                  sx={{
+                    marginRight: '8px',
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Link href='#'>Docs</Link>
+                </Box>
 
-              <Box
-                sx={{
-                  marginRight: '8px',
-                  textDecoration: 'none',
-                }}
-              >
-                <Link href='#'>Do not share my personal information</Link>
+                <Box
+                  sx={{
+                    marginRight: '8px',
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Link href='#'>Contact</Link>
+                </Box>
+
+                <Box
+                  sx={{
+                    marginRight: '8px',
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Link href='#'>Manage cookies</Link>
+                </Box>
+
+                <Box
+                  sx={{
+                    marginRight: '8px',
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Link href='#'>Do not share my personal information</Link>
+                </Box>
               </Box>
             </Box>
           </footer>
