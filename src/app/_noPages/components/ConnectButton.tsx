@@ -1,32 +1,29 @@
 import { Button } from '@mui/material';
-import React, { MouseEventHandler } from 'react';
-import { ProviderTypes } from '../contexts/Provider';
+import { MouseEventHandler } from 'react';
 
 interface ICustomButton {
   children: Readonly<React.ReactNode>;
   onClickHandler: MouseEventHandler;
-  id?: any;
 }
 
-const CustomButton: React.FC<ICustomButton> = ({
+const ConnectButton: React.FC<ICustomButton> = ({
   children,
   onClickHandler,
-  id,
 }) => {
   return (
     <Button
       onClick={onClickHandler}
-      id={id}
       sx={{
-        width: '358px',
-        height: '68px',
+        width: '110px',
+        height: '44px',
         backgroundColor: '#005575',
         border: '1px solid #00A8E8',
-        padding: '16px 24px',
         borderRadius: '8px',
-        lineHeight: '24px',
         color: '#FFF',
         fontWeight: '500',
+        '@media (min-width: 1200px)': {
+          width: '180px',
+        },
         '&:hover': { backgroundColor: 'black', color: 'white' },
         '&:active': { backgroundColor: 'black', color: 'white' },
         '&:visited': {
@@ -41,4 +38,4 @@ const CustomButton: React.FC<ICustomButton> = ({
   );
 };
 
-export default CustomButton;
+export default ConnectButton;

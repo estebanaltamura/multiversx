@@ -1,4 +1,4 @@
-import { EnvironmentsEnum } from '@/app/types';
+import { EnvironmentsEnum } from '@/app/_noPages/types';
 
 export * from './sharedConfig';
 

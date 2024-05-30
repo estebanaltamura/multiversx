@@ -1,9 +1,21 @@
+'use client';
+
 import { Box, Typography } from '@mui/material';
-import MobileDemoVideo from './components/MobileDemoVideo';
-import DesktopDemoVideo from './components/DesktopDemoVIdeo';
-import TickerTapeWidget from './components/TickerTapeWidget';
+import MobileDemoVideo from './_noPages/components/MobileDemoVideo';
+import DesktopDemoVideo from './_noPages/components/DesktopDemoVIdeo';
+import TickerTapeWidget from './_noPages/components/TickerTapeWidget';
+import { useContext, useEffect } from 'react';
+import { ModalContext } from './_noPages/contexts/ModalProvider';
 
 const Page = () => {
+  const { showModal } = useContext(ModalContext);
+
+  useEffect(() => {
+    setTimeout(() => {
+      showModal({ type: 'info' });
+    }, 2000);
+  }, []);
+
   return (
     <>
       <Box

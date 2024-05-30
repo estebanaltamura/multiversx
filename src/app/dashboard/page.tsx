@@ -1,27 +1,26 @@
 'use client';
-import {
-  useGetAccountInfo,
-  useGetAccount,
-  useGetAccountProvider,
-  useGetIsLoggedIn,
-  useGetIsWalletConnectV2Initialized,
-  useGetLoginInfo,
-  useGetWebsocketEvent,
-} from '@multiversx/sdk-dapp/hooks/account';
 
-import { useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Typography } from '@mui/material';
+import { AuthContext } from '../_noPages/contexts/AuthProvider';
 
-const Page: React.FC = () => {
-  const isLoggedIn = useGetIsLoggedIn();
-  const accountInfo = useGetAccountInfo();
+const Page = () => {
+  const { address, isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
-    if (isLoggedIn && accountInfo) {
-      console.log('Account Address:', accountInfo);
-    }
-  }, [isLoggedIn, accountInfo]);
+    console.log(address, isAuthenticated);
+  }, [address, isAuthenticated]);
 
-  return <div> dashboard</div>;
+  return (
+    <>
+      <Typography variant='h6' sx={{ color: 'white' }}>
+        {address}
+      </Typography>
+      <Typography variant='h6' sx={{ color: 'white' }}>
+        {isAuthenticated}
+      </Typography>
+    </>
+  );
 };
 
 export default Page;

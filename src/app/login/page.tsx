@@ -1,6 +1,6 @@
 'use client';
 
-import ConnectWalletModal from '../components/ConnectWalletModal';
+import ConnectWalletModal from '../_noPages/components/ConnectWalletModal';
 
 const Page = () => {
   return <ConnectWalletModal />;

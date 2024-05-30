@@ -1,11 +1,12 @@
 'use client';
 
-import { FC, ReactNode, createContext } from 'react';
+import { FC, ReactNode, createContext, useContext } from 'react';
 import { ExtensionProvider } from '@multiversx/sdk-extension-provider/out';
-import { WalletConnectV2Provider } from '@multiversx/sdk-wallet-connect-provider';
-import { HWProvider } from '@multiversx/sdk-hw-provider';
-import { WalletProvider } from '@multiversx/sdk-web-wallet-provider';
+// import { WalletConnectV2Provider } from '@multiversx/sdk-wallet-connect-provider';
+// import { HWProvider } from '@multiversx/sdk-hw-provider';
+// import { WalletProvider } from '@multiversx/sdk-web-wallet-provider';
 import { SignClientTypes } from '@walletconnect/types';
+import { AuthContext } from './AuthProvider';
 
 export enum ProviderTypes {
   WEB = 'web',
@@ -14,11 +15,10 @@ export enum ProviderTypes {
   WALLET_CONNECT = 'wallet_connect',
 }
 
-export type ProviderTypesSDK =
-  | ExtensionProvider
-  | WalletConnectV2Provider
-  | HWProvider
-  | WalletProvider;
+export type ProviderTypesSDK = ExtensionProvider;
+// | WalletConnectV2Provider
+// | HWProvider
+// | WalletProvider;
 
 interface IClientConnect {
   onClientLogin: () => void;
@@ -46,13 +46,15 @@ const validateParameters = (providerType: any) => {
     throw new Error('Invalid providerType');
 };
 
-export const ProviderContext = createContext<any>(null);
+export const ConnectionContext = createContext<any>(null);
 
-const Provider: FC<{ children: ReactNode }> = ({ children }) => {
+const ConnectionProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  const { setAddress } = useContext(AuthContext);
   class ProviderHandler {
     private static _instance: ProviderHandler = new ProviderHandler();
     private providerType: ProviderTypes | null = null;
     private provider: ProviderTypesSDK | null = null;
+    private address: string | null = null;
 
     private constructor() {
       if (ProviderHandler._instance) {
@@ -85,7 +87,10 @@ const Provider: FC<{ children: ReactNode }> = ({ children }) => {
       await this.provider.logout();
       this.provider = null;
       this.providerType = null;
+      setAddress(null);
     }
+
+    public getAddress = () => this.address;
 
     private async _init(providerType: ProviderTypes) {
       validateParameters(providerType);
@@ -97,46 +102,46 @@ const Provider: FC<{ children: ReactNode }> = ({ children }) => {
             await (this.provider as ExtensionProvider).init();
           }
           break;
-        case ProviderTypes.WALLET_CONNECT:
-          const onClientConnect: IClientConnect = {
-            onClientLogin: () => {
-              console.log('Client logged in');
-            },
-            onClientLogout: () => {
-              console.log('Client logged out');
-            },
-            onClientEvent: (event) => {
-              console.log('Client event:', event);
-            },
-          };
-          const chainId = '1';
-          const walletConnectV2Relay = 'wss://relay.walletconnect.org';
-          const walletConnectV2ProjectId = '85a62864c3d95a4630e06b18e56f2d07';
-          const walletConnectProvider = new WalletConnectV2Provider(
-            onClientConnect,
-            chainId,
-            walletConnectV2Relay,
-            walletConnectV2ProjectId
-          );
-          await walletConnectProvider.init();
-          this.provider = walletConnectProvider;
-          break;
-        case ProviderTypes.LEDGER:
-          if (
-            typeof window !== 'undefined' &&
-            typeof navigator !== 'undefined'
-          ) {
-            this.provider = new HWProvider(/* params necesarios */);
-            await (this.provider as HWProvider).init();
-          }
-          break;
-        case ProviderTypes.WEB:
-          if (typeof window !== 'undefined') {
-            const walletURL = 'https://wallet.multiversx.com';
-            this.provider = new WalletProvider(walletURL);
-            // No hay método init() en WalletProvider
-          }
-          break;
+        // case ProviderTypes.WALLET_CONNECT:
+        //   const onClientConnect: IClientConnect = {
+        //     onClientLogin: () => {
+        //       console.log('Client logged in');
+        //     },
+        //     onClientLogout: () => {
+        //       console.log('Client logged out');
+        //     },
+        //     onClientEvent: (event) => {
+        //       console.log('Client event:', event);
+        //     },
+        //   };
+        //   const chainId = '1';
+        //   const walletConnectV2Relay = 'wss://relay.walletconnect.org';
+        //   const walletConnectV2ProjectId = '85a62864c3d95a4630e06b18e56f2d07';
+        //   const walletConnectProvider = new WalletConnectV2Provider(
+        //     onClientConnect,
+        //     chainId,
+        //     walletConnectV2Relay,
+        //     walletConnectV2ProjectId
+        //   );
+        //   await walletConnectProvider.init();
+        //   this.provider = walletConnectProvider;
+        //   break;
+        // case ProviderTypes.LEDGER:
+        //   if (
+        //     typeof window !== 'undefined' &&
+        //     typeof navigator !== 'undefined'
+        //   ) {
+        //     this.provider = new HWProvider(/* params necesarios */);
+        //     await (this.provider as HWProvider).init();
+        //   }
+        //   break;
+        // case ProviderTypes.WEB:
+        //   if (typeof window !== 'undefined') {
+        //     const walletURL = 'https://wallet.multiversx.com';
+        //     this.provider = new WalletProvider(walletURL);
+        //     // No hay método init() en WalletProvider
+        //   }
+        //   break;
         default:
           throw new Error('Invalid providerType');
       }
@@ -149,7 +154,8 @@ const Provider: FC<{ children: ReactNode }> = ({ children }) => {
       if (this.providerType !== providerType)
         throw new Error('ProviderType mismatch');
 
-      await this.provider.login();
+      this.address = await this.provider.login();
+      setAddress(this.address); // Asegúrate de que setAddress se invoca
     }
   }
 
@@ -162,11 +168,15 @@ const Provider: FC<{ children: ReactNode }> = ({ children }) => {
     providerHandler.logout();
   };
 
+  const getAddress = () => {
+    providerHandler.getAddress();
+  };
+
   return (
-    <ProviderContext.Provider value={{ login, logout }}>
+    <ConnectionContext.Provider value={{ login, logout, getAddress }}>
       {children}
-    </ProviderContext.Provider>
+    </ConnectionContext.Provider>
   );
 };
 
-export default Provider;
+export default ConnectionProvider;

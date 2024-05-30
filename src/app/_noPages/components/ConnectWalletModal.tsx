@@ -3,10 +3,13 @@
 import { Box, Typography } from '@mui/material';
 import CustomButton from './CustomButton';
 import { useContext } from 'react';
-import { ProviderContext, ProviderTypes } from '../contexts/Provider';
+import {
+  ConnectionContext,
+  ProviderTypes,
+} from '../contexts/ConnectionProvider';
 
 const ConnectWalletModal: React.FC = () => {
-  const { login, logout } = useContext(ProviderContext);
+  const { login, logout } = useContext(ConnectionContext);
 
   const loginHandler: (event: React.MouseEvent<HTMLButtonElement>) => void = (
     event
@@ -33,7 +36,7 @@ const ConnectWalletModal: React.FC = () => {
       <CustomButton id={ProviderTypes.EXTENSION} onClickHandler={loginHandler}>
         Login with extension
       </CustomButton>
-      <CustomButton id={ProviderTypes.WEB} onClickHandler={loginHandler}>
+      {/* <CustomButton id={ProviderTypes.WEB} onClickHandler={loginHandler}>
         Login with web wallet
       </CustomButton>
       <CustomButton
@@ -44,7 +47,7 @@ const ConnectWalletModal: React.FC = () => {
       </CustomButton>
       <CustomButton id={ProviderTypes.LEDGER} onClickHandler={loginHandler}>
         Login with ledger
-      </CustomButton>
+      </CustomButton> */}
       <CustomButton onClickHandler={logoutHandler}>LOGOUT</CustomButton>
     </Box>
   );

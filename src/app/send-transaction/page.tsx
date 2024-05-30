@@ -1,7 +1,7 @@
 'use client';
 
 import { Box } from '@mui/material';
-import CustomButton from '../components/CustomButton';
+import CustomButton from '../_noPages/components/CustomButton';
 import { ApiNetworkProvider } from '@multiversx/sdk-network-providers';
 import {
   Transaction,
@@ -12,7 +12,7 @@ import {
   TransactionVersion,
 } from '@multiversx/sdk-core';
 
-import { ProviderContext } from '../contexts/Provider';
+import { ProviderContext } from '../_noPages/contexts/ConnectionProvider';
 import { useContext } from 'react';
 
 const Page = () => {
