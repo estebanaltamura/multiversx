@@ -12,11 +12,11 @@ import {
   TransactionVersion,
 } from '@multiversx/sdk-core';
 
-import { ProviderContext } from '../_noPages/contexts/ConnectionProvider';
+import { ConnectionContext } from '../_noPages/contexts/ConnectionProvider';
 import { useContext } from 'react';
 
 const Page = () => {
-  const { signTransaction } = useContext(ProviderContext);
+  const { signTransaction } = useContext(ConnectionContext);
   const apiNetworkProvider = new ApiNetworkProvider(
     'https://testnet-api.multiversx.com'
   );
