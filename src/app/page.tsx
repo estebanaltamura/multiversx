@@ -10,7 +10,16 @@ import { ModalContext } from './_noPages/contexts/ModalProvider';
 const Page = () => {
   const { triggerModal } = useContext(ModalContext);
 
-  triggerModal.standard.error('mensaje desde la llamada');
+  const title = 'TITULO';
+  const message = 'Descripcion larguisiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiima';
+  const callback = () => {
+    alert('callback');
+  };
+  const redirectUrl = '/dashboard';
+
+  useEffect(() => {
+    triggerModal.standard.info(title, message, { callback, redirectUrl });
+  }, []);
 
   // callback
   // url

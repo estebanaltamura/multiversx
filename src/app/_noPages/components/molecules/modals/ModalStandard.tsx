@@ -30,10 +30,10 @@ const ModalStandard: React.FC<IModalStandard> = ({ type, title, content }) => {
         sx={{
           display: 'flex',
           width: '100%',
-          minHeight: '70px',
-          maxHeight: '70px',
+          minHeight: '55px',
+          maxHeight: '55px',
           justifyContent: 'center',
-          alignItems: 'center',
+          alignItems: 'flex-start',
         }}
       >
         {type === 'info' && (
@@ -80,13 +80,13 @@ const ModalStandard: React.FC<IModalStandard> = ({ type, title, content }) => {
       <Box
         sx={{
           display: 'flex',
+          justifyContent: 'center',
           width: '100%',
           margin: '10px 0 20px 0',
         }}
       >
         <Typography
           sx={{
-            textAlign: 'center',
             fontSize: '16px',
             lineHeight: '28px',
             height: 'fit-content',
