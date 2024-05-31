@@ -1,15 +1,25 @@
 import { Box } from '@mui/material';
 import { createContext, useEffect, useState } from 'react';
-import Modal from '../components/molecules/modals/ModalManager';
-import ModalManager from '../components/molecules/modals/ModalManager';
 
 interface IModalContext {
-  showModal: ({ type }: { type: string }) => Promise<unknown>;
+  triggerModal: {
+    standard: {
+      info: (message: string) => Promise<void>;
+      warning: (message: string) => Promise<void>;
+      error: (message: string) => Promise<void>;
+    };
+    decision: (message: string) => Promise<void>;
+  };
 }
 
 const modalContextInitialValue: IModalContext = {
-  showModal: ({ type }) => {
-    return new Promise(() => {});
+  triggerModal: {
+    standard: {
+      info: async () => {},
+      warning: async () => {},
+      error: async () => {},
+    },
+    decision: async () => {},
   },
 };
 
@@ -27,7 +37,11 @@ const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   // error | info | advertencia por default un solo boton que los cierra. Opcionalmente puede recibir callback y redireccion
   // disyuntiva por default un boton cancelar que los cierra y un aceptar que opcionalmente puede recibir callback y redireccion, sino cierra por default tambien
 
-  const showModal = ({ type }: { type: string }) => {
+  const showModal: (
+    type: string,
+    title: string,
+    content: string
+  ) => Promise<void> = (type, title, content) => {
     return new Promise((resolve) => {
       setType(type);
       setOpen(true);
@@ -35,6 +49,17 @@ const ModalProvider = ({ children }: { children: React.ReactNode }) => {
       //   setPromiseResolver(() => resolve);
       // }, 1000);
     });
+  };
+
+  const title = 'titulo';
+
+  const triggerModal = {
+    standard: {
+      info: (message: string) => showModal('info', title, message),
+      warning: (message: string) => showModal('warning', title, message),
+      error: (message: string) => showModal('error', title, message),
+    },
+    decision: (message: string) => showModal('decision', title, message),
   };
 
   const hideModal = () => {
@@ -51,7 +76,7 @@ const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   }, [open]);
 
   return (
-    <ModalContext.Provider value={{ showModal }}>
+    <ModalContext.Provider value={{ triggerModal }}>
       <Box
         sx={{
           position: 'absolute',
@@ -64,9 +89,7 @@ const ModalProvider = ({ children }: { children: React.ReactNode }) => {
           justifyContent: 'center',
           backgroundColor: 'rgba(50, 50, 50, 0.8)',
         }}
-      >
-        <ModalManager type={type} />
-      </Box>
+      ></Box>
       {children}
     </ModalContext.Provider>
   );

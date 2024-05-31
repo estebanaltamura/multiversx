@@ -8,13 +8,22 @@ import { useContext, useEffect } from 'react';
 import { ModalContext } from './_noPages/contexts/ModalProvider';
 
 const Page = () => {
-  const { showModal } = useContext(ModalContext);
+  const { triggerModal } = useContext(ModalContext);
 
-  useEffect(() => {
-    setTimeout(() => {
-      showModal({ type: 'info' });
-    }, 2000);
-  }, []);
+  triggerModal.standard.error('mensaje desde la llamada');
+
+  // callback
+  // url
+  // trigerModal.standard.error(title, content, callback, url)
+  // trigerModal.custom1(title, content, {callback, url}, {callback, url})
+
+  const showModalInfo = () => {};
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     showModal({ type: 'warning' });
+  //   }, 2000);
+  // }, []);
 
   return (
     <>

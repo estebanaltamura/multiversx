@@ -1,7 +1,16 @@
+import { Description } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
 import { FiInfo } from 'react-icons/fi';
+import { IoWarningOutline } from 'react-icons/io5';
+import { VscError } from 'react-icons/vsc';
 
-const ModalInfo = () => {
+interface IModalStandard {
+  type: 'info' | 'warning' | 'error';
+  title: string;
+  content: string;
+}
+
+const ModalStandard: React.FC<IModalStandard> = ({ type, title, content }) => {
   return (
     <Box
       sx={{
@@ -27,7 +36,19 @@ const ModalInfo = () => {
           alignItems: 'center',
         }}
       >
-        <FiInfo style={{ width: '45px', height: '45px', color: '#007BFF' }} />
+        {type === 'info' && (
+          <FiInfo style={{ width: '45px', height: '45px', color: '#007BFF' }} />
+        )}
+        {type === 'warning' && (
+          <IoWarningOutline
+            style={{ width: '45px', height: '45px', color: '#e5de00' }}
+          />
+        )}
+        {type === 'error' && (
+          <VscError
+            style={{ width: '45px', height: '45px', color: '#de0a26' }}
+          />
+        )}
       </Box>
 
       {/*Title*/}
@@ -50,7 +71,7 @@ const ModalInfo = () => {
             wordBreak: 'break-word',
           }}
         >
-          Podes encontrar
+          {title}{' '}
         </Typography>
       </Box>
 
@@ -77,16 +98,7 @@ const ModalInfo = () => {
             wordBreak: 'break-word', // Fuerza el corte de palabras largas
           }}
         >
-          En nuestra coleccion productos random vas a poder encontrar todo tipo
-          de mambos al mejor precio En nuestra coleccion productos random vas a
-          poder encontrar todo tipo de mambos al mejor precio En nuestra
-          coleccion productos random vas a poder encontrar todo tipo de mambos
-          al mejor precio En nuestra coleccion productos random vas a poder
-          encontrar todo tipo de mambos al mejor precio En nuestra coleccion
-          productos random vas a poder encontrar todo tipo de mambos al mejor
-          precio En nuestra coleccion productos random vas a poder encontrar
-          todo tipo de mambos al mejor precio En nuestra coleccion productos
-          random vas a poder encontrar todo tipo de mambos al mejor precio
+          {content}
         </Typography>
       </Box>
 
@@ -103,7 +115,7 @@ const ModalInfo = () => {
         <Button
           sx={{
             height: '43px',
-            width: '105px',
+            width: '125px',
             borderRadius: '8px',
             backgroundColor: '#005575',
             color: 'white',
@@ -111,20 +123,9 @@ const ModalInfo = () => {
         >
           OK
         </Button>
-        <Button
-          sx={{
-            height: '43px',
-            width: '105px',
-            borderRadius: '8px',
-            backgroundColor: '#005575',
-            color: 'white',
-          }}
-        >
-          Cancel
-        </Button>
       </Box>
     </Box>
   );
 };
 
-export default ModalInfo;
+export default ModalStandard;
