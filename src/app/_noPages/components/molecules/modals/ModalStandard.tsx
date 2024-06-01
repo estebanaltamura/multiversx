@@ -1,5 +1,8 @@
+import { IButtonParameters } from '@/app/_noPages/contexts/ModalProvider';
+import useRedirection from '@/app/_noPages/hooks/useRedirection';
 import { Description } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { FiInfo } from 'react-icons/fi';
 import { IoWarningOutline } from 'react-icons/io5';
 import { VscError } from 'react-icons/vsc';
@@ -8,9 +11,64 @@ interface IModalStandard {
   type: 'info' | 'warning' | 'error';
   title: string;
   content: string;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  resolver: (value: void | PromiseLike<void>) => void;
+  redirection: (url: string) => void;
+  mainButtonParameters?: IButtonParameters;
 }
 
-const ModalStandard: React.FC<IModalStandard> = ({ type, title, content }) => {
+const ModalStandard: React.FC<IModalStandard> = ({
+  type,
+  title,
+  content,
+  setOpen,
+  resolver,
+  redirection,
+  mainButtonParameters,
+}) => {
+  const router = useRedirection();
+  const mainButtonCallbackRef = useRef();
+  const mainButtonRedirectUrlRef = useRef();
+
+  const { callback, redirectUrl } = mainButtonParameters || {};
+
+  console.log(callback, redirectUrl);
+
+  const clickHandler = async () => {
+    if (!callback && !redirectUrl) {
+      setOpen(false);
+      resolver();
+
+      return;
+    }
+
+    if (!callback && redirectUrl) {
+      setOpen(false);
+      resolver();
+      redirection(redirectUrl);
+    }
+
+    if (callback && !redirectUrl) {
+      setOpen(false);
+      resolver();
+      callback();
+    }
+
+    if (callback && redirectUrl) {
+      setOpen(false);
+      resolver();
+      await callback();
+      redirection(redirectUrl);
+    }
+
+    //opcion 1. close
+    //opcion 2. close y redirect
+    //opcion 3. close y callback
+    //opcion 4 close, await callback y redirect
+    //callback
+    //
+  };
+
   return (
     <Box
       sx={{
@@ -36,19 +94,9 @@ const ModalStandard: React.FC<IModalStandard> = ({ type, title, content }) => {
           alignItems: 'flex-start',
         }}
       >
-        {type === 'info' && (
-          <FiInfo style={{ width: '45px', height: '45px', color: '#007BFF' }} />
-        )}
-        {type === 'warning' && (
-          <IoWarningOutline
-            style={{ width: '45px', height: '45px', color: '#e5de00' }}
-          />
-        )}
-        {type === 'error' && (
-          <VscError
-            style={{ width: '45px', height: '45px', color: '#de0a26' }}
-          />
-        )}
+        {type === 'info' && <FiInfo style={{ width: '45px', height: '45px', color: '#007BFF' }} />}
+        {type === 'warning' && <IoWarningOutline style={{ width: '45px', height: '45px', color: '#e5de00' }} />}
+        {type === 'error' && <VscError style={{ width: '45px', height: '45px', color: '#de0a26' }} />}
       </Box>
 
       {/*Title*/}
@@ -113,6 +161,7 @@ const ModalStandard: React.FC<IModalStandard> = ({ type, title, content }) => {
         }}
       >
         <Button
+          onClick={clickHandler}
           sx={{
             height: '43px',
             width: '125px',
